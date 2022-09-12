@@ -1,4 +1,5 @@
-.square {
+.square,
+.square-disabled {
 	height: 50px;
 	min-width: 50px;
 	line-height: 50px;
@@ -7,9 +8,14 @@
 	cursor: pointer;
 }
 
+.square-disabled {
+	color: grey;
+	cursor: initial;
+}
+
 .square:active {
 	background: #f60;
-	color: #fff!important;
+	color: #fff !important;
 }
 
 .square-parent {
@@ -20,6 +26,6 @@
 	margin-bottom: 20px;
 }
 
-.pdp__size-select  {
+.pdp__size-select {
 	display: none;
 }

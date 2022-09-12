@@ -1,6 +1,6 @@
 const chooseSizeHeaderId = 'choose_header_size';
 const dropDownClassName = 'pdp__size-select';
-const sizeOptionsClassName = 'select-size__original';
+const sizeOptionsClassName = 'vanilla-js-dropdown__list-item';
 
 const createHeader = () => {
 	const fieldSet = document.getElementsByClassName(dropDownClassName)[0];
@@ -17,16 +17,24 @@ const showSizeOptions = () => {
 	const config = { attributes: true, childList: true, subtree: true };
 	
 	const insertSizesOptions = (mutationList, observer) => {
-	    const sizeOptions = document.getElementsByClassName(sizeOptionsClassName);
+	    const listItems = document.getElementsByClassName(sizeOptionsClassName);
 	    const squaresParent = document.createElement('div');
 		squaresParent.classList.add("square-parent");
-			
-		for(const opt of sizeOptions){
-			const square = document.createElement('div');
-			square.classList.add("square");
-			square.innerText = opt.innerText;
-			squaresParent.append(square);
-			square.onclick = handleSquareClick;
+
+		for(const listItem of listItems){
+			if(listItem.className.indexOf('input-container__mobile-label') == -1){
+				const square = document.createElement('div');
+				
+				if(listItem.hasAttribute('data-disabled')){
+				   square.classList.add("square-disabled");
+				} else {
+				   square.classList.add("square");
+				   square.onclick = handleSquareClick;
+				}
+				square.innerText = listItem.innerText.match(/\d+/)[0];
+				squaresParent.append(square);
+				
+			}
 		}
 				
 		dropDown.parentNode.insertBefore(squaresParent, dropDown.nextSibling);
@@ -40,7 +48,16 @@ const showSizeOptions = () => {
 
 
 const handleSquareClick = (e) => {
+	const value = e.target.innerText;
 	const chooseSizeHeader = document.getElementById(chooseSizeHeaderId);
+	const listItems = document.getElementsByClassName(sizeOptionsClassName);
+	
+	for(const listItem of listItems){
+		if(listItem.innerText === value){
+			listItem.click();
+		}
+	}
+	
 	chooseSizeHeader.innerText = `size ${e.target.innerText} selected`;
 }
 
