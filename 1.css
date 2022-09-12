@@ -1,0 +1,25 @@
+.square {
+	height: 50px;
+	min-width: 50px;
+	line-height: 50px;
+	text-align: center;
+	border: 2px solid;
+	cursor: pointer;
+}
+
+.square:active {
+	background: #f60;
+	color: #fff!important;
+}
+
+.square-parent {
+	display: flex;
+	gap: 15px;
+	max-width: 200px;
+	flex-wrap: wrap;
+	margin-bottom: 20px;
+}
+
+.pdp__size-select  {
+	display: none;
+}
